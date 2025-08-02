@@ -1,5 +1,5 @@
 
-# 📂 Delinquency Prediction & Risk-Based Collections Automation
+# Delinquency Prediction & Risk-Based Collections Automation
 
 ## 📌 Project Title:
 **Intelligent Delinquency Prediction and Ethical Collections Strategy using Explainable AI**
