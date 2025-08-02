@@ -6,6 +6,8 @@
 
 ## 🧠 Overview:
 This project uses machine learning and fairness-aware modeling to **predict delinquent customers** in a financial dataset and drive **automated, ethical collections decisions**. It integrates:
+- **EDA on Database**
+- **Imputing missing values** (only income was missing so imputation was done one by one according to the employment status)
 - **Data preprocessing**
 - **Imbalanced classification**
 - **Explainability (SHAP)**
