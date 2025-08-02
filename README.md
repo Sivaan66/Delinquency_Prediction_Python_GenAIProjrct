@@ -15,9 +15,6 @@ This project uses machine learning and fairness-aware modeling to **predict deli
 - **Automation design for agentic AI systems**
 
 ## 🔍 Problem Statement:
-Changes in Database:
-- Using EDA on Database
-- Cleaning database using imputing techniques and filling missing values  
 Loan/service-based companies face challenges in:
 - Accurately identifying high-risk customers
 - Reducing false negatives (missed delinquents)
