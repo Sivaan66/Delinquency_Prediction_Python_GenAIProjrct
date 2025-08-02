@@ -13,9 +13,9 @@ from imblearn.over_sampling import SMOTE # This import should now work!
 from collections import Counter
 
 # Load the dataset
-file_path = "Fully_Cleaned_Delenquency_Prediction_Dataset.xlsx - Sheet1.csv"
+file_path = r"C:\Users\prave\OneDrive\Desktop\Project TATA IQ.Geldium\PythonEDA\EDACleaned_Delinquency_Dataset.xlsx"
 try:
-    df = pd.read_csv(file_path)
+    df = pd.read_excel(file_path)
     print("Dataset loaded successfully.")
 except FileNotFoundError:
     print(f"Error: The file '{file_path}' was not found.")
