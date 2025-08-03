@@ -1,6 +1,6 @@
 
 # Delinquency Prediction & Risk-Based Collections Automation
-## Tata Group Data Analytics Job Simulation on Forage - July 2025
+## Tata Group Data Analytics Job Simulation on Forage - July 2025 🔗 [**Check the Certificate**](./TataIQ_@Forage_GenAI_Certificate.pdf)
 - Completed a job simulation involving AI-powered data analytics and strategy development for the Financial Services team at Tata iQ.
 - Conducted exploratory data analysis (EDA) using GenAI tools to assess data quality, identify risk indicators, and structure insights for predictive modeling.
 - Proposed and justified an initial no-code predictive modeling framework to assess customer delinquency risk, leveraging GenAI for structured model logicand evaluation criteria.
