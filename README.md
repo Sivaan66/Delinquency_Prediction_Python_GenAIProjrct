@@ -257,7 +257,7 @@ Running `RandomForestClassifier_model.py` will:
 Final-year B.Tech Electrical Engineering student transitioning into data analytics and AI/ML.
 GitHub: [github.com/Sivaan66](https://github.com/Sivaan66)
 
-Project completed as part of the **Tata Group Data Analytics Job Simulation on Forage (July 2025)** — [certificate included in this repo](./TataIQ_%40Forage_GenAI_Certificate.pdf).
+Project completed as part of the **Tata Group Data Analytics Job Simulation on Forage (July 2025)** — [certificate included in this repo](./Docs/TataIQ_%40Forage_GenAI_Certificate.pdf).
 
 ---
 
