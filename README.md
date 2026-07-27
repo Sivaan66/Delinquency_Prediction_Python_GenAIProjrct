@@ -17,7 +17,7 @@
 
 <p align="center">
   🏆 Built as part of the <strong>Tata Group Data Analytics Job Simulation (Forage, July 2025)</strong> —
-  <a href="./TataIQ_%40Forage_GenAI_Certificate.pdf">view the completion certificate</a>
+  <a href="./images/TataIQ_%40Forage_GenAI_Certificate.pdf">view the completion certificate</a>
 </p>
 
 ---
