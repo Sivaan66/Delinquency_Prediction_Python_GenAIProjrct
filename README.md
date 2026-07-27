@@ -17,9 +17,21 @@
 
 ---
 
-## 1. Project Banner
+## 1. About Me
 
-A visual identity for the project — combining the problem domain (financial risk / delinquency) with the core toolchain (Python, scikit-learn, SHAP, Fairlearn). See `banner.svg` above.
+Hi, I'm **Sivaan**, a final-year **B.Tech Electrical Engineering student** transitioning into the field of **Data Analytics, Machine Learning, and Artificial Intelligence**.
+
+I am passionate about using data-driven approaches to solve real-world business problems by combining analytical thinking, programming, and machine learning techniques. My current focus is on building practical ML projects involving **predictive analytics, customer risk modeling, explainable AI, and responsible AI systems**.
+
+Through projects like this **Delinquency Prediction & Risk-Based Collections Automation system**, I have gained hands-on experience in:
+- Data cleaning and exploratory data analysis using Python
+- Building end-to-end machine learning pipelines
+- Handling imbalanced datasets using techniques like SMOTE
+- Developing classification models for business decision-making
+- Evaluating models using performance metrics beyond accuracy
+- Designing solutions with explainability, fairness, and real-world deployment considerations
+
+I am continuously improving my skills in **Python, SQL, Machine Learning, Data Visualization, and AI engineering** while building projects that bridge the gap between technical solutions and practical business impact.
 
 ## 2. Project Overview
 
