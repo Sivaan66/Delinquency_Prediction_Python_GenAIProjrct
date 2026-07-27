@@ -24,6 +24,7 @@
 
 ## 1. Project Banner
 
+Credit card delinquency results in financial losses because high-risk customers are often identified too late. This project develops an explainable machine learning solution that predicts delinquent customers early, enabling targeted interventions while maintaining transparency and fairness. 
 A visual identity for the project — combining the problem domain (financial risk / delinquency) with the core toolchain (Python, scikit-learn, SHAP, Fairlearn). See `banner.svg` above.
 
 ## 2. Project Overview
