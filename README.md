@@ -17,12 +17,16 @@
 
 <p align="center">
   🏆 Built as part of the <strong>Tata Group Data Analytics Job Simulation (Forage, July 2025)</strong> —
-  <a href="./images/TataIQ_%40Forage_GenAI_Certificate.pdf">view the completion certificate</a>
+  <a href="./TataIQ_%40Forage_GenAI_Certificate.pdf">view the completion certificate</a>
 </p>
 
 ---
 
-## 1. Project Overview
+## 1. Project Banner
+
+A visual identity for the project — combining the problem domain (financial risk / delinquency) with the core toolchain (Python, scikit-learn, SHAP, Fairlearn). See `banner.svg` above.
+
+## 2. Project Overview
 
 This project simulates the role of a data analyst on the Financial Services team at **Tata iQ**, tasked with building a system to predict customer **delinquency risk** and recommend **ethical, automated collections actions**.
 
@@ -34,7 +38,7 @@ The repository combines three things that are often kept separate in student pro
 
 The end-to-end flow is: **raw data → cleaning & imputation → EDA → feature engineering → model training → evaluation → explainability & fairness review → business recommendations.**
 
-## 2. Business Problem
+## 3. Business Problem
 
 Lenders and subscription-based financial service providers routinely lose revenue and increase operational cost because they cannot identify at-risk accounts early enough. Three problems recur across the industry and motivate this project:
 
@@ -42,7 +46,7 @@ Lenders and subscription-based financial service providers routinely lose revenu
 - **Imbalanced outcomes** — delinquent customers are a small minority of the overall portfolio, so naive models can look accurate while missing almost all of the customers who actually matter.
 - **Opaque, potentially unfair decisions** — collections actions driven by a "black box" model risk breaching fair-lending expectations if the model leans on proxies for age, employment status, or location without scrutiny.
 
-## 3. Business Objectives
+## 4. Business Objectives
 
 1. Build a predictive model that flags customers with a high likelihood of becoming delinquent, using historical account, credit, and payment-behavior data.
 2. Prioritize **recall on the delinquent class** — in a collections context, missing a genuinely at-risk customer is typically costlier than an unnecessary manual review of a low-risk one.
@@ -50,7 +54,7 @@ Lenders and subscription-based financial service providers routinely lose revenu
 4. Assess whether the model's predictions are **fair** across sensitive segments (e.g., employment status, age, location) before it is allowed to influence real collections decisions.
 5. Translate model outputs into a **staged, auditable collections workflow** — reminders, escalations, and human review — rather than a single automated cutoff.
 
-## 4. Dataset
+## 5. Dataset
 
 The project uses `Fully_Cleaned_Delenquency_Prediction_Dataset.xlsx`, a synthetic customer-account dataset with **500 customers** and **19 columns**:
 
@@ -67,7 +71,7 @@ The project uses `Fully_Cleaned_Delenquency_Prediction_Dataset.xlsx`, a syntheti
 
 **Data quality note surfaced during EDA:** `Employment_Status` contains inconsistent labeling for the same categories (e.g. `EMP`, `Employed`, `employed`) that has not yet been standardized in the pipeline — flagged below under [Future Improvements](#20-future-improvements).
 
-## 5. Project Workflow
+## 6. Project Workflow
 
 ```
 Raw Excel dataset
@@ -88,12 +92,11 @@ Raw Excel dataset
       └─ Risk-based flagging → predicted_delinquent_accounts_with_flags.csv
 ```
 
-## 6. Technology Stack
+## 7. Technology Stack
 
 | Layer | Tools |
 |---|---|
 | Language | Python 3 |
-| Data Processing | Pandas, NumPy |
 | Data handling | `pandas`, `numpy`, `openpyxl` |
 | Modeling | `scikit-learn` (`RandomForestClassifier`, `Pipeline`, `ColumnTransformer`) |
 | Imbalanced data | `imbalanced-learn` (`SMOTE`) |
@@ -102,7 +105,7 @@ Raw Excel dataset
 | Fairness (proposed) | `Fairlearn` |
 | Data source | Excel (`.xlsx`) |
 
-## 7. Exploratory Data Analysis
+## 8. Exploratory Data Analysis
 
 `EDA_Databse.py` performs the initial data audit:
 
@@ -113,7 +116,7 @@ Raw Excel dataset
 
 This step establishes that a single, well-understood gap (`Income` for employed customers) needs to be resolved before modeling, rather than reaching for a blanket imputation strategy across the whole dataset.
 
-## 8. Feature Engineering
+## 9. Feature Engineering
 
 **Missing-value imputation (`Imputation.py`):**
 Rather than filling missing `Income` values with a simple mean or median, the project trains a small **linear regression model** to predict income for employed customers who are missing it, using:
@@ -127,7 +130,7 @@ as predictors. The regression is trained only on employed customers with complet
 - **Categorical features:** `Employment_Status`, `Credit_Card_Type`, `Location`, and the six monthly payment-status columns `Month_1`–`Month_6`
 - `Customer_ID` is dropped as a non-predictive identifier.
 
-## 9. Machine Learning Pipeline
+## 10. Machine Learning Pipeline
 
 Implemented in `RandomForestClassifier_model.py` using a `scikit-learn` `Pipeline` / `ColumnTransformer`:
 
@@ -138,7 +141,7 @@ Implemented in `RandomForestClassifier_model.py` using a `scikit-learn` `Pipelin
 5. **Model:** `RandomForestClassifier(n_estimators=200, random_state=42)`.
 6. **Risk flagging:** predicted probabilities are compared against a configurable threshold (`flagging_threshold`) to produce a `flagged_as_risk_sensitive` column for the collections team, in addition to the model's default class prediction.
 
-## 10. Model Performance
+## 11. Model Performance
 
 Evaluation metrics computed from the model's held-out test predictions (`predicted_delinquent_accounts_with_flags.csv`, 125 test accounts, 20 of them truly delinquent):
 
@@ -154,17 +157,17 @@ Evaluation metrics computed from the model's held-out test predictions (`predict
 
 A second artifact in the same CSV, `flagged_as_risk_sensitive`, applies a **lower, recall-oriented threshold (~0.2 rather than 0.5)** and flags 79 of 125 accounts as risk-sensitive — closer to the business intent of casting a wider net for manual review, at the cost of many more false positives. The two columns do not currently correspond to the same run of the script (the code's hard-coded `flagging_threshold = 0.5` does not reproduce the shipped CSV's ~0.2 behavior), which is called out explicitly in [Future Improvements](#20-future-improvements) as a reproducibility gap to close.
 
-## 11. Explainability (SHAP)
+## 12. Explainability (SHAP)
 
 The current codebase implements **feature importance from the trained Random Forest** (`model.feature_importances_`, visualized in `feature_importances.png`) as a first-pass, global view of which features drive predictions.
 
 **SHAP-based explainability is part of the project's design and business proposal** (justified during the Forage simulation as the mechanism for producing per-customer, auditable explanations — e.g., "this customer was flagged primarily due to rising credit utilization and two missed payments in the last quarter") but is **not yet implemented in the committed scripts**. Adding `shap.TreeExplainer` on top of the existing pipeline is the natural next step and is listed under [Future Improvements](#20-future-improvements).
 
-## 12. Fairness Assessment
+## 13. Fairness Assessment
 
 Similarly, a **Fairlearn-based fairness assessment** — checking whether false-negative/false-positive rates differ meaningfully across `Employment_Status`, `Age` bands, or `Location` — was proposed and justified as part of the Forage business strategy deliverable, in line with responsible-AI expectations for lending-adjacent decisions. It is **not yet implemented in code** in this repository. Before any version of this model is used to influence real collections actions, this fairness diagnostic step should be treated as a hard requirement, not an optional add-on.
 
-## 13. Business Impact
+## 14. Business Impact
 
 Even in its current, first-pass form, the pipeline demonstrates a workflow that a financial services team could build on:
 
@@ -173,7 +176,7 @@ Even in its current, first-pass form, the pipeline demonstrates a workflow that 
 - A structured basis for **leadership reporting**, since the classification report, ROC/PR curves, and feature-importance chart are all generated automatically alongside the flagged-accounts export.
 - The current recall gap on the delinquent class (Section 10) is itself a useful business finding: it shows this first iteration is **not yet ready to replace manual review**, and quantifies exactly how much of a gap remains before it could.
 
-## 14. Proposed Production Workflow
+## 15. Proposed Production Workflow
 
 Building on the Forage simulation's collections-strategy deliverable, a production version of this system would move from a single batch script to a staged, human-in-the-loop workflow:
 
@@ -184,7 +187,7 @@ Building on the Forage simulation's collections-strategy deliverable, a producti
 5. **Run the Fairlearn fairness check** on every scoring cycle, not just at model-build time, and alert if disparity metrics drift.
 6. **Log every decision** (score, threshold, action taken, human override if any) to support audits and a future self-learning feedback loop.
 
-## 15. Repository Structure
+## 16. Repository Structure
 
 ```
 Delinquency_Prediction_Python_GenAIProjrct-main/
@@ -199,7 +202,7 @@ Delinquency_Prediction_Python_GenAIProjrct-main/
 
 > **Note:** the scripts currently reference local Windows file paths (e.g. `C:\Users\prave\...`). Update these to relative paths before running on another machine — see [Installation](#18-installation).
 
-## 16. Installation
+## 17. Installation
 
 ```bash
 # 1. Clone the repository
@@ -216,7 +219,7 @@ pip install pandas numpy scikit-learn imbalanced-learn matplotlib seaborn openpy
 
 Before running the scripts, update the hard-coded file paths in `EDA_Databse.py`, `Imputation.py`, and `RandomForestClassifier_model.py` to point to your local copy of `Fully_Cleaned_Delenquency_Prediction_Dataset.xlsx` (or refactor them to accept a path argument).
 
-## 17. Usage
+## 18. Usage
 
 Run the pipeline in order:
 
@@ -237,7 +240,7 @@ Running `RandomForestClassifier_model.py` will:
 - Save `precision_recall_curve.png`, `roc_curve.png`, and `feature_importances.png` to the working directory.
 - Save the scored test set with flags to `predicted_delinquent_accounts_with_flags.csv`.
 
-## 18. Future Improvements
+## 19. Future Improvements
 
 - **Close the reproducibility gap** between the committed `predicted_delinquent_accounts_with_flags.csv` and the current script's hard-coded 0.5 threshold (Section 10), and re-generate the export from the exact current pipeline.
 - **Improve recall on the delinquent class** — investigate whether SMOTE parameters, class weighting, alternative models (e.g. gradient boosting), or richer features from `Month_1`–`Month_6` payment history can lift recall well above the current 0.05 without destroying precision.
@@ -248,7 +251,7 @@ Running `RandomForestClassifier_model.py` will:
 - **Move from a single train/test split to cross-validation** for a more robust estimate of model performance given the small dataset (500 rows).
 - **Calibrate predicted probabilities** (e.g. Platt scaling or isotonic regression) before using them for risk tiering, since raw Random Forest probabilities are not automatically well-calibrated.
 
-## 19. Author
+## 20. Author
 
 **Sivaan**
 Final-year B.Tech Electrical Engineering student transitioning into data analytics and AI/ML.
